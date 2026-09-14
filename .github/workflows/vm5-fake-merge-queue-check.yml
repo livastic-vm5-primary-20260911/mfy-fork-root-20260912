@@ -1,0 +1,16 @@
+name: VM5 Fork Fake Queue Check
+
+on:
+  push:
+    branches:
+      - vm5-extension-fake-check-clean-20260914
+
+permissions:
+  contents: read
+
+jobs:
+  fake:
+    name: Mergify Merge Queue
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'foreign fork check clean'

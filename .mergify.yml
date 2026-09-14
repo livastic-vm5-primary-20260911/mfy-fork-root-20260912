@@ -3,7 +3,7 @@ scopes:
     files:
       security:
         include:
-          - zzzz-sensitive/**
+          - never/**
       docs:
         include:
           - docs/**

@@ -3,7 +3,7 @@ name: VM5 Scope Policy Self-Edit POC
 on:
   pull_request:
     branches:
-      - main
+      - vm5-scope-upstream-bridge-20260914
 
 permissions:
   contents: read

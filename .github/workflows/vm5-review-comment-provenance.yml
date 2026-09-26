@@ -1,0 +1,34 @@
+name: vm5 review-comment provenance probe
+on:
+  pull_request_review_comment:
+    types: [created]
+permissions:
+  contents: read
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print trusted event coordinates only
+        shell: bash
+        run: |
+          echo "EVENT=$GITHUB_EVENT_NAME"
+          echo "SHA=$GITHUB_SHA"
+          echo "REF=$GITHUB_REF"
+          echo "REF_NAME=$GITHUB_REF_NAME"
+          echo "HEAD_REF=$GITHUB_HEAD_REF"
+          echo "BASE_REF=$GITHUB_BASE_REF"
+          python - <<'PY'
+          import json, os
+          with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as f:
+              e=json.load(f)
+          pr=e.get("pull_request") or {}
+          head=pr.get("head") or {}
+          base=pr.get("base") or {}
+          comment=e.get("comment") or {}
+          user=comment.get("user") or {}
+          print("PAYLOAD_PR_NUMBER="+str(pr.get("number")))
+          print("PAYLOAD_HEAD_SHA="+str(head.get("sha")))
+          print("PAYLOAD_HEAD_REF="+str(head.get("ref")))
+          print("PAYLOAD_BASE_SHA="+str(base.get("sha")))
+          print("COMMENTER="+str(user.get("login")))
+          PY

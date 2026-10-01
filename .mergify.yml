@@ -1,0 +1,9 @@
+pull_request_rules:
+  - name: VM5 current timer base-rename freshness 20261002
+    conditions:
+      - base = vm5-timer-current-old-261002
+      - title = VM5_TIMER_BASE_RENAME_CURRENT_20261002
+      - current-datetime >= 2026-10-01T23:51:22Z
+    actions:
+      comment:
+        message: VM5_TIMER_BASE_RENAME_STALE_CURRENT_20261002
